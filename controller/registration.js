@@ -11,7 +11,7 @@ const { ObjectId } = require('mongodb');
 
 exports.addUser=(req,res)=>{
     console.log(req.body)
-    User.findOne({email:req.body.email},(err,user)=>{ //find query
+    User.findOne({$or:[{email:req.body.email},{phone:req.body.phone}]},(err,user)=>{ //find query
         if(err){
             return res.status(404).json({error:"Error in fetching email"})
         }
@@ -28,69 +28,55 @@ exports.addUser=(req,res)=>{
                 else{
                     if(req.body.usertype=="shop")
                     {
-                        user.save((err,newUser)=>{
+                       
+                        req.body.userid=ObjectId(newUser._id)
+                        let shop=new Shop(req.body)
+                        
+                        shop.save((err,newShop)=>{
                             if(err){
                                 return res.status(404).json({error:err})
-                                    }
-                                    else{
-                                       req.body.shopid=ObjectId(newUser._id)
-                                       let shop=new Shop(req.body)
-                                       
-                                       shop.save((err,newUser)=>{
-                                        if(err){
-                                            return res.status(404).json({error:err})
-                                            }
-                                            else{
-                                                return res.status(201).json({msg:"Registration successful"})  
-                                            }
-                                       })
-                                        }
-                            
-                            })          
-                     }
-                     else if(req.body.usertype=="landholder")
-                     {
-                         user.save((err,newUser)=>{
-                             if(err){
-                                 return res.status(404).json({error:err})
-                                     }
-                                     else{
-                                        req.body.landholderid=ObjectId(newUser._id)
-                                        let landholder=new Landholder(req.body)
+                                }
+                                else{
+                                    return res.status(201).json(newShop)  
+                                }
+                        })
                                         
-                                        landholder.save((err,newUser)=>{
-                                         if(err){
-                                             return res.status(404).json({error:err})
-                                             }
-                                             else{
-                                                 return res.status(201).json({msg:"Registration successful"})  
-                                             }
-                                        })
-                                         }
-                             
-                             })          
+                            
+                                    
+                     }
+                     else if(req.body.usertype=="landowner")
+                     {
+                         
+                        req.body.userid=ObjectId(newUser._id)
+                        let landholder=new Landholder(req.body)
+                        
+                        landholder.save((err,newLandOwner)=>{
+                            if(err){
+                                return res.status(404).json({error:err})
+                                }
+                                else{
+                                    return res.status(201).json(newLandOwner)  
+                                }
+                        })
+                                    
                       }
                     else if(req.body.usertype=="customer")
                      {
-                         user.save((err,newUser)=>{
-                             if(err){
-                                 return res.status(404).json({error:err})
-                                     }
-                                     else{
-                                        req.body.customerid=ObjectId(newUser._id)
-                                        let customer=new Customer(req.body)
-                                        
-                                        customer.save((err,newUser)=>{
-                                         if(err){
-                                             return res.status(404).json({error:err})
-                                             }
-                                             else{
-                                                 return res.status(201).json({msg:"Registration successful"})  
-                                             }
-                                        })
-                                         }
+                        
+                        req.body.customerid=ObjectId(newUser._id)
+                        let customer=new Customer(req.body)
+                        
+                        customer.save((err,newCus)=>{
+                            if(err){
+                                return res.status(404).json({error:err})
+                                }
+                                else{
+                                    return res.status(201).json(newCus)  
+                                }
+                        })
+                                         
                              
-                             })          
+                                    
                       }
                       else if(req.body.usertype=="advisor")
                      {
@@ -133,6 +119,9 @@ exports.login=(req,res)=>{
             //put token in cookie
             res.cookie("token",token,{expire: new Date()+9999});
             return res.status(201).json({token,user})
+        }
+        else{
+            return res.status(404).json({error:"Invalid email or password"})
         }
     }
         )

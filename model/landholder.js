@@ -2,30 +2,20 @@ var mongoose = require("mongoose");
 const {ObjectId}=mongoose.Schema
 var landholderSchema=mongoose.Schema({
 
-    landholderid:{
+    userid:{
         type: ObjectId,
         required: true,
     },   
-    country:{
-        type:String,
-        required: true,
-    },
-    state:{
-        type:String,
-        required: true,
-    },
+    
     district:{
         type:String,
         required: true,
     },
-    city:{
+    place:{
         type:String,
         required: true,
     },
-    landmark:{
-        type:String,
-        required: true,
-    },
+    
     housename:{
         type:String,
         required: true,
@@ -34,9 +24,6 @@ var landholderSchema=mongoose.Schema({
         type:Number,
         required: true,
     },
-    landholderphoto:{
-        type:String,
-        required: true,
-    }
+    
 })
 module.exports=mongoose.model("Landholder",landholderSchema);

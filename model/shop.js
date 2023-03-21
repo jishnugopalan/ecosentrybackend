@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 const {ObjectId}=mongoose.Schema
 var shopSchema=mongoose.Schema({
-    shopid:{
+    userid:{
         type: ObjectId,
         required: true,
     },
@@ -19,42 +19,28 @@ var shopSchema=mongoose.Schema({
         required:true,
         unique: true
     },
-    shopcontact:{
+    shopphone:{
         type:Number,
         required:true,
         unique: true
     },
-    country:{
+    shopdistrict:{
         type:String,
         required: true,
     },
-    state:{
+    shopplace:{
         type:String,
         required: true,
     },
-    district:{
-        type:String,
-        required: true,
-    },
-    city:{
-        type:String,
-        required: true,
-    },
-    landmark:{
-        type:String,
-        required: true,
-    },
-    pincode:{
+    
+    shoppincode:{
         type:Number,
         required: true,
     },
-    logo:{
+    shoppic:{
         type:String,
-        required: true,
+        
     },
-    proof:{
-        type:String,
-        required: true,
-    },  
+      
 })
 module.exports=mongoose.model("Shop",shopSchema);
