@@ -14,6 +14,14 @@ exports.addUser=(req,res)=>{
         }
     })
 
+}
+exports.getAllCategories=(req,res)=>{
+    Category.find({},(err,category)=>{
+        if(err){
+            return res.status(404).json({"error":"Error in fetching categories"})
+        }else if(category){
+            return res.status(201).json(category)
+        }
 
-   
+    })
 }

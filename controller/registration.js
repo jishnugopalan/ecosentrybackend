@@ -8,6 +8,7 @@ var jwt= require("jsonwebtoken");
 const expressJwt = require("express-jwt");
 
 const { ObjectId } = require('mongodb');
+const { body } = require('express-validator')
 
 exports.addUser=(req,res)=>{
     console.log(req.body)
@@ -126,4 +127,20 @@ exports.login=(req,res)=>{
     }
         )
 }
+
+exports.findUser=(req,res)=>{
+    console.log(req.body)
+    User.findOne({_id:ObjectId(req.body.userid)},(err,user)=>{
+        if(err){
+            return res.status(404).json({error:"Error in fetching user"})
+        }
+        else if(user){
+            return res.status(201).json(user)
+        }
+        else{
+            return res.status(404).json({"error":"User not found"})
+        }
+    })
+}
+
  
