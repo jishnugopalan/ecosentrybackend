@@ -2,8 +2,9 @@ var mongoose = require("mongoose");
 const {ObjectId}=mongoose.Schema
 var subcategorySchema=mongoose.Schema({
 
-    categoryid:{
+    category:{
         type: ObjectId,
+        ref: "Category",
         required: true,
     },   
     subcategory:{

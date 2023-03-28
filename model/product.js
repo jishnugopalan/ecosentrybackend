@@ -10,16 +10,14 @@ var productSchema=mongoose.Schema({
         type:String,
         required: true,
     },
-    categoryid:{
+    category: {
         type: ObjectId,
-        required: true,
+        ref: "Category",
+        required: true
     },
-    subcategoryid:{
+    subcategory:{
         type: ObjectId,
-        required: true,
-    },
-    brand:{
-        type:String,
+        ref:"Subcategory",
         required: true,
     },
     price:{
@@ -30,11 +28,11 @@ var productSchema=mongoose.Schema({
         type:Number,
         required: true,
     },
-    Image:{
+    image:{
         type:String,
         required: true,
     },
-    Description:{
+    description:{
         type:String,
         required: true,
     }

@@ -16,6 +16,7 @@ exports.addUser=(req,res)=>{
 
 }
 exports.getAllCategories=(req,res)=>{
+    console.log(req.body)
     Category.find({},(err,category)=>{
         if(err){
             return res.status(404).json({"error":"Error in fetching categories"})
