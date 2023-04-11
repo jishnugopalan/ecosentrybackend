@@ -4,6 +4,7 @@ var shopSchema=mongoose.Schema({
     userid:{
         type: ObjectId,
         required: true,
+        ref:"User"
     },
     shopname:{
         type: String,

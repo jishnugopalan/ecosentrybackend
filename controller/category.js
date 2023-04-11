@@ -1,5 +1,5 @@
 var Category=require('../model/category')
-//const { ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
 
 exports.addUser=(req,res)=>{
     console.log(req.body)
@@ -24,5 +24,13 @@ exports.getAllCategories=(req,res)=>{
             return res.status(201).json(category)
         }
 
+    })
+}
+exports.getCategoryById=(req,res)=>{
+    Category.find({_id:ObjectId(req.body.categoryid)},(err,category)=>{
+        if(err)
+        return res.status(404).json({msg:"Error in fetching category"})
+        else if(category)
+        return res.status(201).json(category)
     })
 }

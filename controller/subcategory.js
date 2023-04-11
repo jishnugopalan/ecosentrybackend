@@ -12,8 +12,25 @@ exports.addUser=(req,res)=>{
         else{
             return res.status(201).json(newUser)
         }
+    }) 
+}
+exports.getAllSubCategory=(req,res)=>{
+    console.log(req.body)
+    Subcategory.find().populate("category").exec((err,subcategory)=>{
+        if(err)
+        return res.status(404).json({msg:"Error in fetching subcategory"})
+        else if(subcategory)
+        return res.status(201).json(subcategory)
+
     })
+}
+exports.getSubCategoryById=(req,res)=>{
+    console.log(req.body)
+    Subcategory.find({category:req.body.categoryid}).populate("category").exec((err,subcategory)=>{
+        if(err)
+        return res.status(404).json({msg:"Error in fetching subcategory"})
+        else if(subcategory)
+        return res.status(201).json(subcategory)
 
-
-   
+    })
 }
