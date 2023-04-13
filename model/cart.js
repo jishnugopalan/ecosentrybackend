@@ -1,16 +1,16 @@
 var mongoose = require("mongoose");
 const {ObjectId}=mongoose.Schema
 var cartSchema=mongoose.Schema({
-    productid:{
+    product:{
         type:ObjectId,
-        ref:"products"
+        ref:"Product"
     },
-    userid:{
+    user:{
         type:ObjectId,
-        ref:'user'
+        ref:"User"
     },
     qty:{
         type:Number
     }
 })
-module.exports=mongoose.model("Customer",cartSchema)
+module.exports=mongoose.model("Cart",cartSchema)

@@ -14,6 +14,4 @@ routes.post('/getcartbyuserid',productController.getCartByUserid)
 routes.post('/getcartbycartid',productController.getCartByCartid)
 routes.post('/deletecart',productController.deleteCartItem)
 
-
-
 module.exports = routes

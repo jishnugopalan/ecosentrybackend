@@ -32,7 +32,7 @@ exports.getProductByCategory=(req,res)=>{
     })
 }
 exports.getProductById=(req,res)=>{
-    Product.find({_id:ObjectId(req.body.productid)},(err,product)=>{
+    Product.findOne({_id:ObjectId(req.body.productid)},(err,product)=>{
         if(err)
         return res.status(404).json({msg:"Error in fetching products"})
         else if(product)
@@ -86,7 +86,8 @@ exports.addToCart=(req,res)=>{
 }
 
 exports.getCartByUserid=(req,res)=>{
-    Cart.find({userid:ObjectId(req.body.userid).populate("products").populate("users")},(err,cart)=>{
+    console.log(req.body)
+    Cart.find({user:ObjectId(req.body.userid)}).populate("product").populate("user").exec((err,cart)=>{
         if(err)
         return res.status(404).json({msg:"Error in getting cart data"})
         else if(cart)
@@ -94,7 +95,7 @@ exports.getCartByUserid=(req,res)=>{
     })
 }
 exports.getCartByCartid=(req,res)=>{
-    Cart.find({_id:ObjectId(req.body.cartid).populate("products").populate("users")},(err,cart)=>{
+    Cart.find({_id:ObjectId(req.body.cartid)}).populate("product").populate("user").exec((err,cart)=>{
         if(err)
         return res.status(404).json({msg:"Error in getting cart data"})
         else if(cart)

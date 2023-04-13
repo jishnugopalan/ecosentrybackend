@@ -1,13 +1,13 @@
 var mongoose = require("mongoose");
 const {ObjectId}=mongoose.Schema
 var OrderSchema=mongoose.Schema({
-    productid:{
+    product:{
         type:ObjectId,
-        ref:'products'
+        ref:'Product'
     },
-    userid:{
+    user:{
         type:ObjectId,
-        ref:'users'
+        ref:'User'
     },
     vendorid:{
         type:ObjectId,
@@ -19,7 +19,10 @@ var OrderSchema=mongoose.Schema({
     total_price:{
         type:Number
     },
-    payment_status:{
+    order_status:{
+        type:String
+    },
+    delevery_option:{
         type:String
     },
     timestamp:{

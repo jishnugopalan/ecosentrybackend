@@ -1,11 +1,25 @@
 var mongoose = require("mongoose");
 const {ObjectId}=mongoose.Schema
 var paymentSchema=mongoose.Schema({
-    orderid:{
+    order:{
         type:ObjectId,
-        ref:'orders'
+        ref:'Order'
 
     },
+    product:{
+        type:ObjectId,
+        ref:'Product'
+    },
+    customerid:{
+        type:ObjectId,
+        ref:'User'
+    },
+    //vendorid
+    user:{
+        type:ObjectId,
+        ref:'User'
+    },
+
     payment_status:{
         type:String
     },

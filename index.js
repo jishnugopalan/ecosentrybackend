@@ -11,6 +11,7 @@ var landroute = require('./routes/land')
 var categoryroute = require('./routes/category')
 var subcategoryroute = require('./routes/subcategory')
 var productroute = require('./routes/product')
+var orderroute=require('./routes/order')
 
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.DATABASE,{
@@ -30,6 +31,7 @@ app.use('/api', landroute)
 app.use('/api', categoryroute)
 app.use('/api', subcategoryroute)
 app.use('/api', productroute)
+app.use('/api',orderroute)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
