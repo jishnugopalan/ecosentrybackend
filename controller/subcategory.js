@@ -25,8 +25,9 @@ exports.getAllSubCategory=(req,res)=>{
     })
 }
 exports.getSubCategoryById=(req,res)=>{
+    console.log("inn")
     console.log(req.body)
-    Subcategory.find({category:req.body.categoryid}).populate("category").exec((err,subcategory)=>{
+    Subcategory.find({category:ObjectId(req.body.categoryid)}).populate("category").exec((err,subcategory)=>{
         if(err)
         return res.status(404).json({msg:"Error in fetching subcategory"})
         else if(subcategory)
