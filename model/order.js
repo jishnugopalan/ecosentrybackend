@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-const {ObjectId}=mongoose.Schema
+const {ObjectId}=require("mongodb")
 var OrderSchema=mongoose.Schema({
     product:{
         type:ObjectId,
@@ -11,7 +11,6 @@ var OrderSchema=mongoose.Schema({
     },
     vendorid:{
         type:ObjectId,
-        ref:'users'
     },
     qty:{
         type:Number
@@ -20,7 +19,8 @@ var OrderSchema=mongoose.Schema({
         type:Number
     },
     order_status:{
-        type:String
+        type:String,
+        default:"order confirmed"
     },
     delevery_option:{
         type:String

@@ -2,37 +2,20 @@ const Order=require("../model/order")
 const Payment=require("../model/payment")
 const Product=require("../model/product")
 const {ObjectId}=require("mongodb")
+const Customer=require("../model/customer")
 
 exports.createOrder=(req,res)=>{
    
-    Product.findOne({_id:ObjectId(req.body.product)},{price:1}).exec((err,price)=>{
-       
-        if(err)
-        return res.status(404).json({msg:"Error in create order"})
-        if(price){
-            console.log(price)
-            req.body.total_price=price.price*req.body.qty
-            let newOrder=Order(req.body)
-            newOrder.save((err,order)=>{
-            if(err)
-            return res.status(404).json({msg:"Error in create order"})
-            if(order)
-            return res.status(201).json(order)
-
-            })
-
-        }
-      
+    let newOrder=Order(req.body)
+    newOrder.save((err,order)=>{
+    if(err)
+    return res.status(404).json({msg:"Error in create order"})
+    if(order)
+    return res.status(201).json(order)
 
     })
-    // console.log(price)
-    // newOrder.save((err,order)=>{
-    //     if(err)
-    //     return res.status(404).json({msg:"Error in create order"})
-    //     if(order)
-    //     return res.status(201).json(order)
-
-    // })
+  
+  
 }
 
 exports.cancelOrder=(req,res)=>{
@@ -63,7 +46,17 @@ exports.startPayment=(req,res)=>{
                 if(err)
                 return res.status(404).json({msg:err})
                 if(payment){
-                    return res.status(201).json(payment)
+                   // return res.status(201).json(payment)
+                    Order.updateOne({_id:ObjectId(req.body.order)},{
+                        $set:{
+                            order_status:"Payment Completed"
+                        }
+                    }).exec((err,upd)=>{
+                        if(err)
+                        return res.status(404).json({msg:"Error in payment"})
+                        else if(upd)
+                        return res.status(201).json({msg:"Payment completed"})
+                    })
                 }
                 
             })
@@ -125,6 +118,16 @@ exports.viewPaymentByPaymentid=(req,res)=>{
         return res.status(404).json({msg:"Error in fetching payment details"})
         if(pay){
             return res.status(201).json(pay)
+        }
+    })
+}
+exports.getCustomerDetails=(req,res)=>{
+
+    Customer.findOne({customerid:ObjectId(req.body.customerid)}).exec((err,customer)=>{
+        if(err)
+        return res.status(404).json({msg:"Error in fetching customer details"})
+        if(customer){
+            return res.status(201).json(customer)
         }
     })
 }

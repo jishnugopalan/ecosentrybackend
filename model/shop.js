@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-const {ObjectId}=mongoose.Schema
+const {ObjectId}=require("mongodb")
 var shopSchema=mongoose.Schema({
     user:{
         type: ObjectId,

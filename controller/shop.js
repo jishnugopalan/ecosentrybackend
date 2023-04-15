@@ -24,3 +24,15 @@ exports.getShopByUserid=(req,res)=>{
             }
     })
 }
+exports.getShopDetailsById=(req,res)=>{
+    Shop.findOne({_id:ObjectId(req.body.shopid)},{user:1,shopname:1,shopphone:1,shopdistrict:1,shopplace:1,shoppincode:1
+
+        }).populate("user").exec((err,shop)=>{
+        if(err){
+            return res.status(404).json({error:err})
+            }
+            else{
+                return res.status(201).json(shop)
+            }
+    })
+}

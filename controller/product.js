@@ -31,8 +31,16 @@ exports.getProductByCategory=(req,res)=>{
         return res.status(201).json(product)
     })
 }
+exports.getProductBySubCategory=(req,res)=>{
+    Product.find({subcategory:ObjectId(req.body.subcategoryid)}).populate("category").populate("subcategory").exec((err,product)=>{
+        if(err)
+        return res.status(404).json({msg:"Error in fetching products"})
+        else if(product)
+        return res.status(201).json(product)
+    })
+}
 exports.getProductById=(req,res)=>{
-    Product.findOne({_id:ObjectId(req.body.productid)},(err,product)=>{
+    Product.findOne({_id:ObjectId(req.body.productid)}).populate("category").populate("subcategory").exec((err,product)=>{
         if(err)
         return res.status(404).json({msg:"Error in fetching products"})
         else if(product)

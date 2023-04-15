@@ -10,4 +10,5 @@ routes.post("/vieworderbyid",orderController.viewOrderById)
 routes.post("/viewpaymentbycustomer",orderController.viewPaymentByCustomer)
 routes.post("/viewpaymentbyvendor",orderController.viewPaymentByVendor)
 routes.post("/viewpaymentbypaymentid",orderController.viewPaymentByPaymentid)
+routes.post("/getcustomerdetails",orderController.getCustomerDetails)
 module.exports = routes

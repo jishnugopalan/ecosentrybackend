@@ -19,6 +19,10 @@ var paymentSchema=mongoose.Schema({
         type:ObjectId,
         ref:'User'
     },
+    payment_option:{
+
+        type:String
+    },
 
     payment_status:{
         type:String
