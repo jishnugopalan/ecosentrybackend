@@ -30,7 +30,7 @@ exports.addUser=(req,res)=>{
                     if(req.body.usertype=="shop")
                     {
                        
-                        req.body.userid=ObjectId(newUser._id)
+                        req.body.user=ObjectId(newUser._id)
                         let shop=new Shop(req.body)
                         
                         shop.save((err,newShop)=>{
