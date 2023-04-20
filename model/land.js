@@ -1,10 +1,11 @@
 var mongoose = require("mongoose");
-const {ObjectId}=mongoose.Schema
+const {ObjectId}=require("mongodb")
 var landSchema=mongoose.Schema({
 
-    landholderid:{
+    user:{
         type: ObjectId,
         required: true,
+        ref:"User"
     },   
     landcountry:{
         type:String,
