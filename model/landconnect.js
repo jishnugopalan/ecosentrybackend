@@ -3,11 +3,11 @@ const {ObjectId}=require("mongodb")
 var landConnectSchema=mongoose.Schema({
     land:{
         type:ObjectId,
-        ref:"land"
+        ref:"Land"
     },
     user:{
         type:ObjectId,
-        ref:"user"
+        ref:"User"
     },
     status:{
         type:String,

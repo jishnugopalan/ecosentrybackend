@@ -24,19 +24,26 @@ exports.viewAllLand=(req,res)=>{
     })
 }
 exports.viewLand=(req,res)=>{
+    console.log(req.body)
     Land.findOne({_id:req.body.landid}).populate("user").exec((err,land)=>{
-        if(err)
-        return res.status(404).json({error:"Error in fetching data"})
-        else if(land)
-        return res.status(201).json(land)
+        if(err){
+            console.log("in err")
+            return res.status(404).json({error:"Error in fetching data"})
+        }
+       
+        else if(land){
+            console.log("in land")
+            return res.status(201).json(land)
+        }
+       
     })
 }
 exports.connectLand=(req,res)=>{
-    LandConncet.findOne({user:ObjectId(req.body.userid),land:ObjectId(req.body.landid)},(err,land)=>{
+    LandConncet.findOne({user:ObjectId(req.body.user),land:ObjectId(req.body.land)},(err,land)=>{
         if(err)
         return res.status(404).json({error:"Error in fetching data"})
         else if(land)
-        return res.status(404).json({msg:"Request already sent"})
+        return res.status(405).json({msg:"Request already sent"})
         else{
             let newLandConnect=LandConncet(req.body)
             newLandConnect.save((err,landconnect)=>{
@@ -58,9 +65,10 @@ exports.viewLandByLandOwner=(req,res)=>{
     })
 }
 exports.viewLandConnectByLandOwner=(req,res)=>{
+    console.log(req.body)
     LandConncet.find({land:ObjectId(req.body.landid)}).populate("user").exec((err,landconnect)=>{
         if(err)
-        return res.status(404).json({error:"Error in fetching data"})
+        return res.status(404).json({error:err})
         else if(landconnect)
         return res.status(201).json(landconnect)
     })
@@ -68,7 +76,7 @@ exports.viewLandConnectByLandOwner=(req,res)=>{
 exports.updateLandConnectStatus=(req,res)=>{
     LandConncet.updateOne({_id:ObjectId(req.body.connectionid)},{
         $set:{
-            status:"Connected"
+            status:req.body.status
         }
     }).exec((err,landupd)=>{
         if(err)
@@ -79,7 +87,7 @@ exports.updateLandConnectStatus=(req,res)=>{
 }
 
 exports.viewLandConnectByCustomer=(req,res)=>{
-    LandConncet.find({user:ObjectId(req.body.userid)}).populate("land").exec((err,landconnect)=>{
+    LandConncet.find({user:ObjectId(req.body.userid),status:"accepted"}).populate("land").exec((err,landconnect)=>{
         if(err)
         return res.status(404).json({error:"Error in fetching data"})
         else if(landconnect)

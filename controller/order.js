@@ -19,9 +19,9 @@ exports.createOrder=(req,res)=>{
 }
 
 exports.cancelOrder=(req,res)=>{
-    Order.updateOne({_id:req.body.orderid},{
+    Order.updateOne({_id:ObjectId(req.body.orderid)},{
         $set:{
-            order_status:"cancelled"
+            order_status:"Order Cancelled"
         }
     },(err,delorder)=>{
         if(err)
