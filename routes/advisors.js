@@ -8,7 +8,7 @@ routes.post('/addquestion',customerController.addQuestion)
 routes.post('/sendreply',customerController.sendReply)
 routes.post('/view-question-adviser',customerController.viewQuestionByAdviser)
 routes.post('/view-question-customer',customerController.viewQuestionByCustomer)
-
+routes.post('/getquestionbyid',customerController.getQuestionById)
 
 
 
