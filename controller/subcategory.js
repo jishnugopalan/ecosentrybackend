@@ -3,7 +3,7 @@ const { ObjectId } = require('mongodb');
 
 exports.addUser=(req,res)=>{
     console.log(req.body)
-    req.body.categoryid=ObjectId(req.body.categoryid)
+    req.body.category=ObjectId(req.body.categoryid)
     let subcategory=Subcategory(req.body)
     subcategory.save((err,newUser)=>{
         if(err){
